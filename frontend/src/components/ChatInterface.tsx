@@ -41,7 +41,7 @@ const getEmotionEmoji = (e: string) =>
   emotionEmoji[e?.toLowerCase()] ?? emotionEmoji.default;
 
 // ─── ChatBubble Component ────────────────────────────────────────────────────
-function ChatBubble({ msg, onNavigate }: { msg: Message; onNavigate: (tab: string) => void }) {
+function ChatBubble({ msg, onNavigate, language }: { msg: Message; onNavigate: (tab: string) => void, language: string }) {
   const isUser = msg.sender === 'user';
   const [isSpeaking, setIsSpeaking] = useState(false);
 
@@ -60,13 +60,34 @@ function ChatBubble({ msg, onNavigate }: { msg: Message; onNavigate: (tab: strin
     utterance.onend = () => setIsSpeaking(false);
     utterance.onerror = () => setIsSpeaking(false);
     
-    // Choose a better voice if available (Priority: en-IN -> en-GB -> en-US)
+    // Choose a better voice if available
     const voices = window.speechSynthesis.getVoices();
-    const indianVoice = voices.find(v => v.lang === 'en-IN' || v.lang === 'en_IN');
-    const britishVoice = voices.find(v => v.lang === 'en-GB' || v.lang === 'en_GB');
-    const usVoice = voices.find(v => v.lang === 'en-US' || v.lang === 'en_US');
+    let selectedVoice = null;
     
-    const selectedVoice = indianVoice || britishVoice || usVoice || voices[0];
+    if (language === 'हिंदी') {
+      selectedVoice = voices.find(v => v.lang.includes('hi')) || voices.find(v => v.lang.includes('IN'));
+    } else if (language === 'ಕನ್ನಡ') {
+      selectedVoice = voices.find(v => v.lang.includes('kn')) || voices.find(v => v.lang.includes('IN'));
+    } else if (language === 'తెలుగు') {
+      selectedVoice = voices.find(v => v.lang.includes('te')) || voices.find(v => v.lang.includes('IN'));
+    } else if (language === 'தமிழ்') {
+      selectedVoice = voices.find(v => v.lang.includes('ta')) || voices.find(v => v.lang.includes('IN'));
+    } else if (language === 'Español') {
+      selectedVoice = voices.find(v => v.lang.includes('es'));
+    } else if (language === 'Français') {
+      selectedVoice = voices.find(v => v.lang.includes('fr'));
+    } else if (language === 'Deutsch') {
+      selectedVoice = voices.find(v => v.lang.includes('de'));
+    } else if (language === '日本語') {
+      selectedVoice = voices.find(v => v.lang.includes('ja'));
+    } else {
+      const indianVoice = voices.find(v => v.lang === 'en-IN' || v.lang === 'en_IN');
+      const britishVoice = voices.find(v => v.lang === 'en-GB' || v.lang === 'en_GB');
+      const usVoice = voices.find(v => v.lang === 'en-US' || v.lang === 'en_US');
+      selectedVoice = indianVoice || britishVoice || usVoice;
+    }
+    
+    selectedVoice = selectedVoice || voices[0];
     if (selectedVoice) utterance.voice = selectedVoice;
     
     utterance.rate = 0.9;
@@ -273,6 +294,30 @@ const translations: Record<string, Record<string, string>> = {
   'ಕನ್ನಡ': {
     chat_title: "ಹಾಯ್, ನಾನು ಸಹಾಯ!",
     chat_subtitle: "ನಾನು ನಿಮಗೆ ಇಂದು ಹೇಗೆ ಸಹಾಯ ಮಾಡಬಹುದು?"
+  },
+  'తెలుగు': {
+    chat_title: "హాయ్, నేను సహాయ్!",
+    chat_subtitle: "ఈరోజు నేను మీకు ఎలా సహాయపడగలను?"
+  },
+  'தமிழ்': {
+    chat_title: "ஹாய், நான் சஹாய்!",
+    chat_subtitle: "இன்று நான் உங்களுக்கு எப்படி உதவ முடியும்?"
+  },
+  'Español': {
+    chat_title: "¡Hola, soy Sahaay!",
+    chat_subtitle: "¿Cómo puedo ayudarte hoy?"
+  },
+  'Français': {
+    chat_title: "Salut, je suis Sahaay !",
+    chat_subtitle: "Comment puis-je vous aider aujourd'hui ?"
+  },
+  'Deutsch': {
+    chat_title: "Hallo, ich bin Sahaay!",
+    chat_subtitle: "Wie kann ich dir heute helfen?"
+  },
+  '日本語': {
+    chat_title: "こんにちは、サハイです！",
+    chat_subtitle: "今日はどのようにお手伝いしましょうか？"
   }
 };
 
@@ -283,6 +328,7 @@ export default function ChatInterface({ language, onNavigate }: { language: stri
   const [input, setInput] = useState('');
   const [isTyping, setIsTyping] = useState(false);
   const [highRiskAlert, setHighRiskAlert] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const bottomRef = useRef<HTMLDivElement>(null);
 
   // Auto-greeting effect (optional, or just leave empty as per user request for blob visibility)
@@ -295,7 +341,18 @@ export default function ChatInterface({ language, onNavigate }: { language: stri
       return;
     }
     const recognition = new (window as any).webkitSpeechRecognition();
-    recognition.lang = language === 'हिंदी' ? 'hi-IN' : language === 'ಕನ್ನಡ' ? 'kn-IN' : 'en-US';
+    const langMap: Record<string, string> = {
+      'English': 'en-IN',
+      'हिंदी': 'hi-IN',
+      'ಕನ್ನಡ': 'kn-IN',
+      'తెలుగు': 'te-IN',
+      'தமிழ்': 'ta-IN',
+      'Español': 'es-ES',
+      'Français': 'fr-FR',
+      'Deutsch': 'de-DE',
+      '日本語': 'ja-JP'
+    };
+    recognition.lang = langMap[language] || 'en-US';
     recognition.continuous = false;
     recognition.interimResults = false;
     recognition.onstart = () => setIsListening(true);
@@ -329,6 +386,8 @@ export default function ChatInterface({ language, onNavigate }: { language: stri
         userId: user?.id || 'guest',
       });
 
+      setError(null);
+
       setTimeout(() => {
         const botMsg: Message = {
           id: Date.now(),
@@ -350,6 +409,7 @@ export default function ChatInterface({ language, onNavigate }: { language: stri
       }, 1000);
     } catch (e) {
       setIsTyping(false);
+      setError("I'm having trouble connecting to my brain. Please check your connection or try again later. 💙");
       console.error(e);
     }
   };
@@ -464,9 +524,18 @@ export default function ChatInterface({ language, onNavigate }: { language: stri
                   className="space-y-6"
                 >
                   {messages.map(msg => (
-                    <ChatBubble key={msg.id} msg={msg} onNavigate={onNavigate} />
+                    <ChatBubble key={msg.id} msg={msg} onNavigate={onNavigate} language={language} />
                   ))}
                   {isTyping && <TypingIndicator />}
+                  {error && (
+                    <motion.div 
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="p-4 rounded-2xl bg-red-500/10 border border-red-500/20 text-red-400 text-sm text-center"
+                    >
+                      {error}
+                    </motion.div>
+                  )}
                 </motion.div>
               )}
             </AnimatePresence>

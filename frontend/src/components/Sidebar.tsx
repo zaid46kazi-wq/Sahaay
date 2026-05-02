@@ -51,10 +51,76 @@ const translations: Record<string, Record<string, string>> = {
     games: 'ಆಟಗಳು',
     hub: 'ಶಾಂತ ಹಬ್',
     profile: 'ಪ್ರೊಫೈಲ್',
-    community: 'ಸಮುದಾಯ',
+    community: 'ಸಮುದాయ',
     logout: 'ಲಾಗ್ ಔಟ್',
     title: 'ಸಹಾಯ್',
-    subtitle: 'ಸೈಲೆಂಟ್ ಸಪೋರ್ಟ್ ಎಐ'
+    subtitle: 'ಸೈಲೆಂట్ ಸಪೋರ್ಟ್ ಎಐ'
+  },
+  'తెలుగు': {
+    home: 'హోమ్',
+    chat: 'చాట్',
+    games: 'గేమ్స్',
+    hub: 'ప్రశాంత హబ్',
+    profile: 'ప్రొఫైల్',
+    community: 'కమ్యూనిటీ',
+    logout: 'లాగ్ అవుట్',
+    title: 'సహాయ్',
+    subtitle: 'సైలెంట్ సపోర్ట్ AI'
+  },
+  'தமிழ்': {
+    home: 'முகப்பு',
+    chat: 'அரட்டை',
+    games: 'விளையாட்டுகள்',
+    hub: 'அமைதி மையம்',
+    profile: 'சுயவிவரம்',
+    community: 'சமூகம்',
+    logout: 'வெளியேறு',
+    title: 'சஹாய்',
+    subtitle: 'அமைதி ஆதரவு AI'
+  },
+  'Español': {
+    home: 'Inicio',
+    chat: 'Chat',
+    games: 'Juegos',
+    hub: 'Centro de Calma',
+    profile: 'Perfil',
+    community: 'Comunidad',
+    logout: 'Cerrar sesión',
+    title: 'Sahaay',
+    subtitle: 'IA de Soporte Silencioso'
+  },
+  'Français': {
+    home: 'Accueil',
+    chat: 'Chat',
+    games: 'Jeux',
+    hub: 'Hub de Calme',
+    profile: 'Profil',
+    community: 'Communauté',
+    logout: 'Déconnexion',
+    title: 'Sahaay',
+    subtitle: 'IA de Support Silencieux'
+  },
+  'Deutsch': {
+    home: 'Startseite',
+    chat: 'Chat',
+    games: 'Spiele',
+    hub: 'Ruhe-Hub',
+    profile: 'Profil',
+    community: 'Community',
+    logout: 'Abmelden',
+    title: 'Sahaay',
+    subtitle: 'Stille Support-KI'
+  },
+  '日本語': {
+    home: 'ホーム',
+    chat: 'チャット',
+    games: 'ゲーム',
+    hub: '穏やかなハブ',
+    profile: 'プロフィール',
+    community: 'コミュニティ',
+    logout: 'ログアウト',
+    title: 'サハイ',
+    subtitle: 'サイレント・サポートAI'
   }
 };
 

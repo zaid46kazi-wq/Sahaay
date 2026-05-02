@@ -54,12 +54,12 @@ db.exec(`
 `);
 
 app.post('/api/chat', async (req, res) => {
-  const { message, userId = 'guest' } = req.body;
+  const { message, userId = 'guest', language = 'English' } = req.body;
 
   try {
     // 1. Call CrewAI Python Service
-    console.log('Calling CrewAI service...');
-    const aiResponse = await axios.post('http://localhost:8000/chat', { message });
+    console.log(`Calling CrewAI service in ${language}...`);
+    const aiResponse = await axios.post('http://localhost:8000/chat', { message, language });
     const { emotion, confidence, risk, reply, suggestions } = aiResponse.data;
 
     // 2. Store in Supabase or SQLite

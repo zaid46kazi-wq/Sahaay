@@ -35,27 +35,69 @@ const QUOTES = [
 const translations: Record<string, Record<string, string>> = {
   'English': {
     title: 'Sahaay Care Companion',
-    subtitle: 'Small steps to take care of yourself today.'
+    subtitle: 'Small steps to take care of yourself today.',
+    water_title: 'Water Reminder',
+    water_desc: 'Drink a glass of water (~300 ml)',
+    walk_title: 'Walking Reminder',
+    walk_desc: 'Take a short 300m walk',
+    sunlight_title: 'Sunlight Reminder',
+    sunlight_desc: 'Step outside for some sunlight',
+    yoga_title: 'Yoga / Meditation',
+    yoga_desc: '2–5 minute breathing or meditation',
+    sounds_title: 'Calm Sounds',
+    sounds_desc: 'Listen to calming audio',
+    phone_title: 'No Phone Break',
+    phone_desc: 'Take a 20-minute break from your phone',
+    great_job: 'Great job taking care of yourself! ❤️',
+    try_later: "That's okay, we'll try later."
   },
   'हिंदी': {
     title: 'सहाय केयर कम्पैनियन',
-    subtitle: 'आज अपना ख्याल रखने के लिए छोटे कदम।'
+    subtitle: 'आज अपना ख्याल रखने के लिए छोटे कदम।',
+    water_title: 'पानी की याद दिलाई',
+    water_desc: 'एक गिलास पानी पिएं (~300 मिली)',
+    walk_title: 'चलने की याद दिलाई',
+    walk_desc: '300 मीटर की छोटी सैर करें',
+    sunlight_title: 'धूप की याद दिलाई',
+    sunlight_desc: 'बाहर जाकर कुछ धूप का आनंद लें',
+    yoga_title: 'योग / ध्यान',
+    yoga_desc: '2-5 मिनट की सांस या ध्यान',
+    sounds_title: 'शांत आवाजें',
+    sounds_desc: 'शांत संगीत सुनें',
+    phone_title: 'फोन से ब्रेक',
+    phone_desc: 'अपने फोन से 20 मिनट का ब्रेक लें',
+    great_job: 'आप अपना ख्याल रखने में शानदार कर रहे हो! ❤️',
+    try_later: 'कोई बात नहीं, हम बाद में कोशिश करेंगे।'
   },
   'ಕನ್ನಡ': {
     title: 'ಸಹಾಯ ಕೇರ್ ಕಂಪ್ಯಾನಿಯನ್',
-    subtitle: 'ಇಂದು ನಿಮ್ಮ ಬಗ್ಗೆ ಕಾಳಜಿ ವಹಿಸಲು ಸಣ್ಣ ಹಂತಗಳು.'
+    subtitle: 'ಇಂದು ನಿಮ್ಮ ಬಗ್ಗೆ ಕಾಳಜಿ ವಹಿಸಲು ಸಣ್ಣ ಹಂತಗಳು.',
+    water_title: 'ನೀರಿನ ನೆನಪು',
+    water_desc: 'ಒಂದು ಗ್ಲಾಸ್ ನೀರು ಕುಡಿಯಿರಿ (~300 ಮಿಲಿ)',
+    walk_title: 'ನಡೆಯುವಿಕೆಯ ನೆನಪು',
+    walk_desc: '300 ಮೀ ಆಗಿರುವ ಮುಕ್ತ ನಡೆಯಿರಿ',
+    sunlight_title: 'ಸೂರ್ಯನ ಬೆಳಕಿನ ನೆನಪು',
+    sunlight_desc: 'ಹೊರಗೆ ಹೋಗಿ ಸೂರ್ಯನ ಬೆಳಕನ್ನು ಆನಂದಿಸಿಕೊಳ್ಳಿ',
+    yoga_title: 'ಯೋಗ / ಧ್ಯಾನ',
+    yoga_desc: '2-5 ನಿಮಿಷದ ಶ್ವಾಸಪ್ರಶ್ವಾಸ ಅಥವಾ ಧ್ಯಾನ',
+    sounds_title: 'ಶಾಂತ ಶಬ್ದಗಳು',
+    sounds_desc: 'ಶಾಂತಿಗೊಳ್ಳುವ ಆಡಿಯೋ ಕೇಳಿ',
+    phone_title: 'ಫೋನ್ ವಿರತಿ',
+    phone_desc: 'ನಿಮ್ಮ ಫೋನ್ ನಿಂದ 20 ನಿಮಿಷದ ವಿರತಿ ತೆಗೆದುಕೊಳ್ಳಿ',
+    great_job: 'ನಿಮ್ಮ ಬಗ್ಗೆ ಕಾಳಜಿ ವಹಿಸಿದ್ದಕ್ಕಾಗಿ ಮಹಾ ಸ್ತುತಿ! ❤️',
+    try_later: 'ಯಾವ ಸಮಸ್ಯೆ ಇಲ್ಲ, ನಾವು ನಂತರ ಪ್ರಯತ್ನಿಸುತ್ತೇವೆ।'
   }
 };
 
 export default function CareCompanion({ onNavigate, language = 'English' }: { onNavigate: (tab: string) => void, language?: string }) {
   const t = translations[language] || translations['English'];
   const [tasks, setTasks] = useState<Task[]>([
-    { id: 'water', title: 'Water Reminder', description: 'Drink a glass of water (~300 ml)', icon: BeakerIcon, done: false, skipped: false },
-    { id: 'walk', title: 'Walking Reminder', description: 'Take a short 300m walk', icon: MapIcon, done: false, skipped: false },
-    { id: 'sunlight', title: 'Sunlight Reminder', description: 'Step outside for some sunlight', icon: SunIcon, done: false, skipped: false },
-    { id: 'yoga', title: 'Yoga / Meditation', description: '2–5 minute breathing or meditation', icon: SparklesIcon, done: false, skipped: false },
-    { id: 'sounds', title: 'Calm Sounds', description: 'Listen to calming audio', icon: MusicalNoteIcon, action: () => onNavigate('hub'), done: false, skipped: false },
-    { id: 'phone', title: 'No Phone Break', description: 'Take a 20-minute break from your phone', icon: NoSymbolIcon, done: false, skipped: false },
+    { id: 'water', title: t.water_title, description: t.water_desc, icon: BeakerIcon, done: false, skipped: false },
+    { id: 'walk', title: t.walk_title, description: t.walk_desc, icon: MapIcon, done: false, skipped: false },
+    { id: 'sunlight', title: t.sunlight_title, description: t.sunlight_desc, icon: SunIcon, done: false, skipped: false },
+    { id: 'yoga', title: t.yoga_title, description: t.yoga_desc, icon: SparklesIcon, done: false, skipped: false },
+    { id: 'sounds', title: t.sounds_title, description: t.sounds_desc, icon: MusicalNoteIcon, action: () => onNavigate('hub'), done: false, skipped: false },
+    { id: 'phone', title: t.phone_title, description: t.phone_desc, icon: NoSymbolIcon, done: false, skipped: false },
   ]);
 
   const [notification, setNotification] = useState<string | null>(null);
@@ -76,7 +118,7 @@ export default function CareCompanion({ onNavigate, language = 'English' }: { on
 
   const handleDone = async (id: string) => {
     setTasks(prev => prev.map(t => t.id === id ? { ...t, done: true, skipped: false } : t));
-    setFeedback("Great job taking care of yourself! ❤️");
+    setFeedback(t.great_job);
     setTimeout(() => setFeedback(null), 3000);
 
     // Track in DB
@@ -94,7 +136,7 @@ export default function CareCompanion({ onNavigate, language = 'English' }: { on
 
   const handleSkip = async (id: string) => {
     setTasks(prev => prev.map(t => t.id === id ? { ...t, done: false, skipped: true } : t));
-    setFeedback("That’s okay, we’ll try later.");
+    setFeedback(t.try_later);
     setTimeout(() => setFeedback(null), 3000);
 
     // Track in DB

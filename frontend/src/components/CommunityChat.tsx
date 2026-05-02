@@ -11,7 +11,9 @@ import {
   UserPlusIcon,
   CheckIcon,
   UsersIcon,
-  BellIcon
+  BellIcon,
+  NoSymbolIcon,
+  EnvelopeIcon
 } from '@heroicons/react/24/outline';
 import { motion, AnimatePresence } from 'framer-motion';
 

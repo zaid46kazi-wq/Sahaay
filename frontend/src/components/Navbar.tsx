@@ -12,6 +12,12 @@ export default function Navbar({ language, setLanguage, userEmail }: { language:
           <option>English</option>
           <option>हिंदी</option>
           <option>ಕನ್ನಡ</option>
+          <option>తెలుగు</option>
+          <option>தமிழ்</option>
+          <option>Español</option>
+          <option>Français</option>
+          <option>Deutsch</option>
+          <option>日本語</option>
         </select>
 
         <div className="flex items-center gap-3 border-l border-white/10 pl-6">
